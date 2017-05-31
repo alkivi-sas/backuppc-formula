@@ -1,0 +1,68 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+backuppc:
+  pkgs: 
+    - backuppc
+    - libfile-rsyncp-perl
+  config_file: '/etc/backuppc/config.pl'
+  hosts_file: '/etc/backuppc/hosts'
+  service: backuppc
+  config:
+    ServerHost: backup.localhost
+    ServerPort: -1
+    ServerMesgSecret: ''
+    MyPath: /bin
+    UmaskMode: 23
+    WakeupSchedule: 
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 6
+      - 8
+      - 10
+      - 12
+      - 14
+      - 16
+      - 18
+      - 20
+      - 21
+      - 22
+      - 23
+    MaxUserBackups: 1
+    MaxPendingCmds: 15
+    CmdQueueNice: 10
+    MaxBackupPCNightlyJobs: 4
+    BackupPCNightlyPeriod: 1
+    MaxOldLogFiles: 15
+    BackupPCUser: backuppc
+    TopDir: /var/lib/backuppc
+    ConfDir: /etc/backuppc
+    LogDir: /var/lib/backuppc/log
+    InstallDir: /usr/share/backuppc
+    CgiDir: /usr/share/backuppc/cgi-bin
+    FullPeriod: 6.97
+    IncrPeriod: 0.97
+    FullKeepCnt:
+      - 1
+    FullKeepCntMin: 1
+    FullAgeMax: 90
+    IncrKeepCnt: 5
+    IncrKeepCntMin: 1
+    IncrAgeMax: 30
+    IncrLevels: 
+      - 1
+    BackupsDisable: 0
+    PartialAgeMax: 3
+    IncrFill: 0
+    RestoreInfoKeepCnt: 10
+    ArchiveInfoKeepCnt: 10
+    BlackoutBadPingLimit: 3
+    BlackoutGoodCnt: 7
+    EMailNotifyMinDays: 0.97
+    EMailFromUserName: backup@localhost
+    EMailAdminUserName: root@localhost
+    CgiAdminUserGroup: admin
+    CgiAdminUsers: '*'
+    CgiURL: http://backup.localhost/index.cgi
