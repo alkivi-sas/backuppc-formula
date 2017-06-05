@@ -1,0 +1,51 @@
+{#- General one line config -#}
+{% for key in ['XferMethod',
+               'RsyncClientCmd',
+               'RsyncClientRestoreCmd',
+               'RsyncdUserName',
+               'RsyncdPasswd',
+               'DumpPreUserCmd',
+               'DumpPostUserCmd',
+               'DumpPreShareCmd',
+               'DumpPostShareCmd',
+               'RestorePreUserCmd',
+               'RestorePostUserCmd',
+               'ArchivePreUserCmd',
+               'ArchivePostUserCmd',
+               'ClientNameAlias',
+               ]|sort -%}
+{%- if config.get(key, False) -%}
+{%- set data = config.get(key) -%}
+{% if data is string %}
+$Conf{{'{' }}{{ key }}{{'}'}} = '{{ data|string }}';
+{%- elif data is iterable %}
+$Conf{{'{' }}{{ key }}{{'}'}} = [{{ ', '.join(data) }}];
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+
+{#- Specific dumps format -#}
+{%- if config.get('BlackoutPeriods', False) %}
+$Conf{BlackoutPeriods} = [
+{%- for period in config.get('BlackoutPeriods', []) %}
+{ hourBegin => {{ period.hourBegin }}, hourEnd => {{ period.hourEnd }}, weekDays => [ {{ period.weekDays|join(', ') }} ] },
+{%- endfor %}
+];
+{%- endif %}
+
+{# Backup data -#}
+{%- set data = config.get('BackupData', {}) -%}
+$Conf{RsyncShareName} = [ 
+{% for key, value in data.iteritems() -%}
+    '{{ key }}',
+{% endfor -%}
+];
+$Conf{BackupFilesOnly} = {
+{% for key, value in data.iteritems() -%}
+    '{{ key }}' => [
+        {% for path in value -%}
+        '{{ path }}',
+{% endfor -%}
+    ],
+{% endfor -%}
+};
