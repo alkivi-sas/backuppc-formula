@@ -12,7 +12,7 @@ backuppc-config:
     - group: www-data
     - mode: 644
     - context:
-      config: {{ backuppc.config }}
+      config: {{ backuppc.config | yaml() }}
     - watch_in:
       - service: backuppc
 
