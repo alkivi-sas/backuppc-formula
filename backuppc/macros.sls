@@ -23,7 +23,7 @@ backuppc-{{ name }}:
     - mode: 644
     - context:
       host: {{ name }}
-      config: {{ config }}
+      config: {{ config|tojson }}
     - watch_in:
       - service: backuppc
 {% else %}

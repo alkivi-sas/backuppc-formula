@@ -36,12 +36,12 @@ $Conf{BlackoutPeriods} = [
 {# Backup data -#}
 {%- set data = config.get('BackupData', {}) -%}
 $Conf{RsyncShareName} = [ 
-{% for key, value in data.iteritems() -%}
+{% for key, value in data.items() -%}
     '{{ key }}',
 {% endfor -%}
 ];
 $Conf{BackupFilesOnly} = {
-{% for key, value in data.iteritems() -%}
+{% for key, value in data.items() -%}
     '{{ key }}' => [
         {% for path in value -%}
         '{{ path }}',
