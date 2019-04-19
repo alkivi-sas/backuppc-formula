@@ -5,4 +5,4 @@
 
 backuppc-pkgs:
   pkg.installed:
-    - pkgs: {{ backuppc.pkgs }}
+    - pkgs: {{ backuppc.pkgs|tojson }}
